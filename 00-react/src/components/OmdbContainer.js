@@ -13,14 +13,25 @@ class OmdbContainer extends Component {
     search: ""
   };
   componentDidMount() {
-    searchMovies(`the Matrix`)
+    this.searchMovies("The Matrix")
   }
-
+  
   searchMovies = query => {
     API.search(query)
       .then(res => this.setState({ result: res.data }))
       .catch(err => console.log(err));
   };
+  
+  handleInputChange = (event) => {
+    const {name, value} = event.target;
+    this.setState({
+      [name]: value
+    })
+  }
+  handleFormSubmit =  (event) => {
+  event.preventDefault()
+  this.searchMovies(this.state.search)
+  }
 
   render() {
     return (
